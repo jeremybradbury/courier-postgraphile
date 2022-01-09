@@ -1,0 +1,39 @@
+{
+  "name": "courier-postgraphile",
+  "version": "2021.9.1",
+  "description": "A simple, testable GraphQL framework, used here with a logless Secure Messaging Courier",
+  "main": "index.js",
+  "repository": "gitlab:jeremybradbury/courier-postgraphile",
+  "author": "Jeremy Bradbury <jdbradbury@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=12 < 17"
+  },
+  "scripts": {
+    "setup": "sh ./scripts/setup.sh",
+    "setup_win": ".\\scripts\\setup.cmd",
+    "test": "node ./scripts/tests.js",
+    "start": "npx postgraphile",
+    "prod": "NODE_ENV=production && npx postgraphile",
+    "prod_win": "set NODE_ENV=production && npx postgraphile",
+    "build": "node ./scripts/build.js",
+    "tests": "wait-on tcp:5000 && npx jest",
+    "dev": "node ./scripts/dev.js",
+    "open": "wait-on tcp:5000 && node ./scripts/open.js"
+  },
+  "dependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "@graphile/operation-hooks": "^1.0.0",
+    "@graphile/pg-pubsub": "^4.11.0",
+    "@jeremybradbury/faker": "^5.5.3",
+    "jest": "^26.6.3",
+    "postgraphile": "^4.11.0"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "concurrently": "^6.1.0",
+    "open": "^8.1.0",
+    "wait-on": "^5.3.0"
+  }
+}
