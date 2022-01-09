@@ -19,7 +19,7 @@
 
 # Getting Started
 
-1. dependencies: `npm i && npm audit fix`
+1. dependencies: `npm i`
 1. setup: `yarn setup` or `yarn setup_win` respectively
 1. test: `yarn test` (concurrently runs `yarn start` & `yarn tests`)
 1. develop: `yarn dev`
