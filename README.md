@@ -19,7 +19,7 @@
 
 # Getting Started
 
-1. dependencies: `yarn`
+1. dependencies: `npm i && npm audit fix`
 1. setup: `yarn setup` or `yarn setup_win` respectively
 1. test: `yarn test` (concurrently runs `yarn start` & `yarn tests`)
 1. develop: `yarn dev`
@@ -93,6 +93,7 @@ I believe it's best to have an archetecture that scales while getting out of the
 
 ## What's missing? - TODOs, goals, considerations & ideas
 
+- **Add subscriptions to threads**.
 - The callback nature of some helpers isn't ideal but we keep it limited to one.
 - More Linux / Mac testing / testers - I work from windows for gaming reasons.
 - Perhaps repeating the previous line, more prod testing.
