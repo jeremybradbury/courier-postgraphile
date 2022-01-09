@@ -2,7 +2,7 @@ const path = require("path");
 const scriptName = path.basename(__filename);
 const { query } = require("../" + scriptName);
 const { testQuery, alsoLookupThenDeleteCb } = require("../../test_helpers");
-const faker = require("faker");
+const faker = require("@jeremybradbury/faker");
 
 const variables = {
   publicKey: faker.random.alphaNumeric(64),

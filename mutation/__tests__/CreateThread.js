@@ -7,7 +7,7 @@ const {
   debugRequest,
   DEBUG,
 } = require("../../test_helpers");
-const faker = require("faker");
+const faker = require("@jeremybradbury/faker");
 const CreateSession = require("../CreateSession");
 const JoinThread = require("../JoinThread");
 const CreateThread = require("../CreateThread");

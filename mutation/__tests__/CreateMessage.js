@@ -7,7 +7,7 @@ const {
   debugRequest,
   DEBUG,
 } = require("../../test_helpers");
-const faker = require("faker");
+const faker = require("@jeremybradbury/faker");
 const CreateSession = require("../CreateSession");
 const JoinThread = require("../JoinThread");
 const CreateThread = require("../CreateThread");
@@ -115,8 +115,8 @@ describe("Query", () => {
     expect(message.createdAt).toBeTruthy(); // created?
     expect(message.fromId).toEqual(owner.id); // from owner?
     expect(message.body).toEqual(message2.body); // same?
-    expect(message.fromId).toEqual(message2.from.id); // same?
-    expect(message.threadId).toEqual(message2.thread.id); // same?
+    expect(message.fromId).toEqual(message2.fromId); // same?
+    expect(message.threadId).toEqual(message2.threadId); // same?
 
     label = "Query: " + title + " 6 - GetMessageById";
     debugRequest({ name: label, variables, data });
