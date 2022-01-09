@@ -4,7 +4,7 @@
 
 - https://docs.docker.com/compose/
 - https://www.postgresql.org/docs/14/index.html
--
+- https://www.apollographql.com/docs/tutorial/client/
 - https://www.graphile.org/postgraphile/
 - https://jestjs.io/
 - https://github.com/jeremybradbury/faker.js
@@ -14,7 +14,7 @@
 1. install docker
 1. install docker-compose
 1. install git
-1. install node 16 (14 also works, untested in 10 & 12)
+1. install node 16 (14 also works, not fully tested in 10 or 12)
 1. clone repository: `git clone git@github.com:jeremybradbury/courier-postgraphile.git`
 
 # Getting Started
