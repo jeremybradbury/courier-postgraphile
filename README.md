@@ -31,7 +31,7 @@
 
 This is a project, but also a simple base. Fork or even degit to private, just please, understand and respect the basics of [the MIT license](LICENSE.txt). Just leave it there without modification. It's a short read we often ignore.
 
-I had to recover (in order to [fork](https://github.com/jeremybradbury/faker.js) & [publish to npm](https://www.npmjs.com/package/@jeremybradbury/faker)) a common, open source repo, because the maintainer felt taken advantage of, by commercial organizations... so they force-push-to-master-history-delted their repo. 
+I had to recover (in order to [fork](https://github.com/jeremybradbury/faker.js) & [publish to npm](https://www.npmjs.com/package/@jeremybradbury/faker)) a common, open source repo, because the maintainer felt taken advantage of, by commercial organizations... so they force-push-wiped their repo. 
 
 It's very sad OSS maintainters don't get more support. We're in this together & we all become better because of each other's contributions!
 
