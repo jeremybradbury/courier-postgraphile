@@ -87,11 +87,14 @@ I def suggest TypeScript with Svelte/React/etc on the client, but until we can `
 
 ## What else? - Final thoughts
 
-You may notice since we have such a long "Create" test and it also deletes & edits, you won't find edit tests or delete tests... how do you even unit test a delete? The answer is very carefully. For us it's much easier to use delete actions to cleanup our test data.
+Q: How do you even unit test a delete? 
+A: Very carefully. 
+
+For us it's much easier to use delete actions to cleanup our test data. You may notice we have such a long "Create" test. It also deletes & edits, so you won't find edit tests or delete tests. Our deletes are only threads objects, which will cascade to sessions & messages. 
 
 Locally, we can wipe tables and ensure nothing is left behind and we handle bugs before push it a feature branch for sandbox deployment which likely has a collection of bad data that's either synced from prod, generated and/or wiped regularly.
 
-I believe it's best to have an architecture that scales while getting out of the way of the developers. Fast prototyping, production ready, without upper limits is the dream.
+I believe it's best to have an architecture that scales, while getting out of the way of the developers. Fast prototyping, production ready, without upper limits is the dream.
 
 ## What's missing? - TODOs, goals, considerations & ideas
 
