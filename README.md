@@ -102,3 +102,10 @@ I believe it's best to have an architecture that scales while getting out of the
 - Client work... I only have clients in progress for Redis
 - A cleaner repo, sans examples, up/down stream from this repo?
 - Remove the (officially deprecated) `postgraphilerc.js` approach and use a middleware approach instead.
+
+## Special thanks - OSS Legends & heroes all
+- https://github.com/benjie
+- https://github.com/NicolasCARPi
+- https://github.com/postgres
+- https://github.com/nodejs
+- https://github.com/nginx
