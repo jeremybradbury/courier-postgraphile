@@ -1,342 +1,156 @@
-"""All input for the `courierCode` mutation."""
-input CourierCodeInput {
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
   """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
   """
-  clientMutationId: String
-}
-
-"""The output of our `courierCode` mutation."""
-type CourierCodePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  string: String
+  query: Query!
 
   """
-  Our root query field type. Allows us to run any query from our mutation payload.
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
   """
-  query: Query
-}
+  nodeId: ID!
 
-"""All input for the create `Message` mutation."""
-input CreateMessageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
 
-  """The `Message` to be created by this mutation."""
-  message: MessageInput!
-}
+  """Reads and enables pagination through a set of `Message`."""
+  messages(
+    """Only read the first `n` values of the set."""
+    first: Int
 
-"""The output of our create `Message` mutation."""
-type CreateMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
+    """Only read the last `n` values of the set."""
+    last: Int
 
-  """The `Message` that was created by this mutation."""
-  message: Message
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
 
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads a single `Thread` that is related to this `Message`."""
-  thread: Thread
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
 
-  """Reads a single `Session` that is related to this `Message`."""
-  from: Session
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
     """The method to use when ordering `Message`."""
     orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessagesEdge
-}
 
-"""All input for the create `Session` mutation."""
-input CreateSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MessageCondition
+  ): MessagesConnection
 
-  """The `Session` to be created by this mutation."""
-  session: SessionInput!
-}
+  """Reads and enables pagination through a set of `Session`."""
+  sessions(
+    """Only read the first `n` values of the set."""
+    first: Int
 
-"""The output of our create `Session` mutation."""
-type CreateSessionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
+    """Only read the last `n` values of the set."""
+    last: Int
 
-  """The `Session` that was created by this mutation."""
-  session: Session
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
 
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads a single `Thread` that is related to this `Session`."""
-  thread: Thread
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
 
-  """An edge for our `Session`. May be used by Relay 1."""
-  sessionEdge(
     """The method to use when ordering `Session`."""
     orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionsEdge
-}
 
-"""All input for the create `Thread` mutation."""
-input CreateThreadInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SessionCondition
+  ): SessionsConnection
 
-  """The `Thread` to be created by this mutation."""
-  thread: ThreadInput!
-}
+  """Reads and enables pagination through a set of `Thread`."""
+  threads(
+    """Only read the first `n` values of the set."""
+    first: Int
 
-"""The output of our create `Thread` mutation."""
-type CreateThreadPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
+    """Only read the last `n` values of the set."""
+    last: Int
 
-  """The `Thread` that was created by this mutation."""
-  thread: Thread
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
 
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads a single `Session` that is related to this `Thread`."""
-  owner: Session
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
 
-  """An edge for our `Thread`. May be used by Relay 1."""
-  threadEdge(
     """The method to use when ordering `Thread`."""
     orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ThreadsEdge
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ThreadCondition
+  ): ThreadsConnection
+  message(id: UUID!): Message
+  messageByFromId(fromId: UUID!): Message
+  session(id: UUID!): Session
+  sessionByPublicKey(publicKey: String!): Session
+  thread(id: String!): Thread
+
+  """Reads a single `Message` using its globally unique `ID`."""
+  messageByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Message`."""
+    nodeId: ID!
+  ): Message
+
+  """Reads a single `Session` using its globally unique `ID`."""
+  sessionByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Session`."""
+    nodeId: ID!
+  ): Session
+
+  """Reads a single `Thread` using its globally unique `ID`."""
+  threadByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Thread`."""
+    nodeId: ID!
+  ): Thread
 }
 
-"""A location in a connection that can be used for resuming pagination."""
-scalar Cursor
-
-"""
-A point in time as described by the [ISO
-8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
-"""
-scalar Datetime
-
-"""All input for the `deleteMessageByFromId` mutation."""
-input DeleteMessageByFromIdInput {
+"""An object with a globally unique `ID`."""
+interface Node {
   """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  fromId: UUID!
-}
-
-"""All input for the `deleteMessageByNodeId` mutation."""
-input DeleteMessageByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Message` to be deleted.
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
 }
 
-"""All input for the `deleteMessage` mutation."""
-input DeleteMessageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """identifies messages, id is auto-generated"""
-  id: UUID!
-}
-
-"""The output of our delete `Message` mutation."""
-type DeleteMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Message` that was deleted by this mutation."""
-  message: Message
-  deletedMessageNodeId: ID
+"""A connection to a list of `Message` values."""
+type MessagesConnection {
+  """A list of `Message` objects."""
+  nodes: [Message]!
 
   """
-  Our root query field type. Allows us to run any query from our mutation payload.
+  A list of edges which contains the `Message` and cursor to aid in pagination.
   """
-  query: Query
+  edges: [MessagesEdge!]!
 
-  """Reads a single `Thread` that is related to this `Message`."""
-  thread: Thread
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
 
-  """Reads a single `Session` that is related to this `Message`."""
-  from: Session
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
-    """The method to use when ordering `Message`."""
-    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessagesEdge
-}
-
-"""All input for the `deleteSessionByNodeId` mutation."""
-input DeleteSessionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Session` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteSessionByPublicKey` mutation."""
-input DeleteSessionByPublicKeyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """a public key to send data to this session"""
-  publicKey: String!
-}
-
-"""All input for the `deleteSession` mutation."""
-input DeleteSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """identifies user sessions, id is created on thread start"""
-  id: UUID!
-}
-
-"""The output of our delete `Session` mutation."""
-type DeleteSessionPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Session` that was deleted by this mutation."""
-  session: Session
-  deletedSessionNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `Thread` that is related to this `Session`."""
-  thread: Thread
-
-  """An edge for our `Session`. May be used by Relay 1."""
-  sessionEdge(
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SessionsEdge
-}
-
-"""All input for the `deleteThreadByNodeId` mutation."""
-input DeleteThreadByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Thread` to be deleted.
-  """
-  nodeId: ID!
-}
-
-"""All input for the `deleteThread` mutation."""
-input DeleteThreadInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
-"""The output of our delete `Thread` mutation."""
-type DeleteThreadPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Thread` that was deleted by this mutation."""
-  thread: Thread
-  deletedThreadNodeId: ID
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `Session` that is related to this `Thread`."""
-  owner: Session
-
-  """An edge for our `Thread`. May be used by Relay 1."""
-  threadEdge(
-    """The method to use when ordering `Thread`."""
-    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): ThreadsEdge
-}
-
-type ListenPayload {
-  """
-  Our root query field type. Allows us to run any query from our subscription payload.
-  """
-  query: Query
-  relatedNode: Node
-  relatedNodeId: ID
+  """The count of *all* `Message` you could get from the connection."""
+  totalCount: Int!
 }
 
 """a message is an encrypted payload, unreadable by service"""
@@ -361,12 +175,63 @@ type Message implements Node {
 
   """last time this message record was updated"""
   updatedAt: Datetime!
+}
 
-  """Reads a single `Thread` that is related to this `Message`."""
-  thread: Thread
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
 
-  """Reads a single `Session` that is related to this `Message`."""
-  from: Session
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""A `Message` edge in the connection."""
+type MessagesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Message` at the end of the edge."""
+  node: Message
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""Methods to use when ordering `Message`."""
+enum MessagesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  THREAD_ID_ASC
+  THREAD_ID_DESC
+  BODY_ASC
+  BODY_DESC
+  FROM_ID_ASC
+  FROM_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """
@@ -392,89 +257,230 @@ input MessageCondition {
   updatedAt: Datetime
 }
 
-"""An input for mutations affecting `Message`"""
-input MessageInput {
-  """identifies messages, id is auto-generated"""
-  id: UUID
-
-  """the thread associated with this message"""
-  threadId: String
-
-  """the actual message body"""
-  body: String!
-  fromId: UUID!
-
-  """time message record was created"""
-  createdAt: Datetime
-
-  """last time this message record was updated"""
-  updatedAt: Datetime
-}
-
-"""
-Represents an update to a `Message`. Fields that are set will be updated.
-"""
-input MessagePatch {
-  """identifies messages, id is auto-generated"""
-  id: UUID
-
-  """the thread associated with this message"""
-  threadId: String
-
-  """the actual message body"""
-  body: String
-  fromId: UUID
-
-  """time message record was created"""
-  createdAt: Datetime
-
-  """last time this message record was updated"""
-  updatedAt: Datetime
-}
-
-"""A connection to a list of `Message` values."""
-type MessagesConnection {
-  """A list of `Message` objects."""
-  nodes: [Message]!
+"""A connection to a list of `Session` values."""
+type SessionsConnection {
+  """A list of `Session` objects."""
+  nodes: [Session]!
 
   """
-  A list of edges which contains the `Message` and cursor to aid in pagination.
+  A list of edges which contains the `Session` and cursor to aid in pagination.
   """
-  edges: [MessagesEdge!]!
+  edges: [SessionsEdge!]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  """The count of *all* `Message` you could get from the connection."""
+  """The count of *all* `Session` you could get from the connection."""
   totalCount: Int!
 }
 
-"""A `Message` edge in the connection."""
-type MessagesEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
+"""a session is a public key, that belongs to a thread"""
+type Session implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
 
-  """The `Message` at the end of the edge."""
-  node: Message
+  """identifies user sessions, id is created on thread start"""
+  id: UUID!
+
+  """the thread associated with this session"""
+  threadId: String
+
+  """a public key to send data to this session"""
+  publicKey: String!
+
+  """time session record was created"""
+  createdAt: Datetime!
+
+  """last time this session record was updated"""
+  updatedAt: Datetime!
+
+  """Reads a single `Thread` that is related to this `Session`."""
+  thread: Thread
+
+  """Reads and enables pagination through a set of `Thread`."""
+  threadsByOwnerId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Thread`."""
+    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ThreadCondition
+  ): ThreadsConnection!
 }
 
-"""Methods to use when ordering `Message`."""
-enum MessagesOrderBy {
+"""a private conversation"""
+type Thread implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: String!
+
+  """session id that invited that created the thread"""
+  ownerId: UUID!
+
+  """time thread record was created"""
+  createdAt: Datetime!
+
+  """last time this thread record was updated"""
+  updatedAt: Datetime!
+
+  """Reads a single `Session` that is related to this `Thread`."""
+  owner: Session
+
+  """Reads and enables pagination through a set of `Session`."""
+  sessions(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Session`."""
+    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SessionCondition
+  ): SessionsConnection!
+}
+
+"""Methods to use when ordering `Session`."""
+enum SessionsOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
   THREAD_ID_ASC
   THREAD_ID_DESC
-  BODY_ASC
-  BODY_DESC
-  FROM_ID_ASC
-  FROM_ID_DESC
+  PUBLIC_KEY_ASC
+  PUBLIC_KEY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Session` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input SessionCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `threadId` field."""
+  threadId: String
+
+  """Checks for equality with the object’s `publicKey` field."""
+  publicKey: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+}
+
+"""A connection to a list of `Thread` values."""
+type ThreadsConnection {
+  """A list of `Thread` objects."""
+  nodes: [Thread]!
+
+  """
+  A list of edges which contains the `Thread` and cursor to aid in pagination.
+  """
+  edges: [ThreadsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Thread` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Thread` edge in the connection."""
+type ThreadsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Thread` at the end of the edge."""
+  node: Thread
+}
+
+"""Methods to use when ordering `Thread`."""
+enum ThreadsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  OWNER_ID_ASC
+  OWNER_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Thread` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ThreadCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: String
+
+  """Checks for equality with the object’s `ownerId` field."""
+  ownerId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+}
+
+"""A `Session` edge in the connection."""
+type SessionsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Session` at the end of the edge."""
+  node: Session
 }
 
 """
@@ -640,264 +646,96 @@ type Mutation {
   ): CourierCodePayload
 }
 
-"""An object with a globally unique `ID`."""
-interface Node {
+"""The output of our create `Message` mutation."""
+type CreateMessagePayload {
   """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
   """
-  nodeId: ID!
-}
+  clientMutationId: String
 
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: Cursor
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
-}
-
-"""The root query type which gives access points into the data universe."""
-type Query implements Node {
-  """
-  Exposes the root query type nested one level down. This is helpful for Relay 1
-  which can only query top level fields if they are in a particular form.
-  """
-  query: Query!
+  """The `Message` that was created by this mutation."""
+  message: Message
 
   """
-  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  Our root query field type. Allows us to run any query from our mutation payload.
   """
-  nodeId: ID!
+  query: Query
 
-  """Fetches an object given its globally unique `ID`."""
-  node(
-    """The globally unique `ID`."""
-    nodeId: ID!
-  ): Node
-
-  """Reads and enables pagination through a set of `Message`."""
-  messages(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
     """The method to use when ordering `Message`."""
     orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: MessageCondition
-  ): MessagesConnection
-
-  """Reads and enables pagination through a set of `Session`."""
-  sessions(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SessionCondition
-  ): SessionsConnection
-
-  """Reads and enables pagination through a set of `Thread`."""
-  threads(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Thread`."""
-    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ThreadCondition
-  ): ThreadsConnection
-  message(id: UUID!): Message
-  messageByFromId(fromId: UUID!): Message
-  session(id: UUID!): Session
-  sessionByPublicKey(publicKey: String!): Session
-  thread(id: String!): Thread
-
-  """Reads a single `Message` using its globally unique `ID`."""
-  messageByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Message`."""
-    nodeId: ID!
-  ): Message
-
-  """Reads a single `Session` using its globally unique `ID`."""
-  sessionByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Session`."""
-    nodeId: ID!
-  ): Session
-
-  """Reads a single `Thread` using its globally unique `ID`."""
-  threadByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Thread`."""
-    nodeId: ID!
-  ): Thread
+  ): MessagesEdge
 }
 
-"""a session is a public key, that belongs to a thread"""
-type Session implements Node {
+"""All input for the create `Message` mutation."""
+input CreateMessageInput {
   """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
   """
-  nodeId: ID!
+  clientMutationId: String
 
-  """identifies user sessions, id is created on thread start"""
-  id: UUID!
+  """The `Message` to be created by this mutation."""
+  message: MessageInput!
+}
 
-  """the thread associated with this session"""
+"""An input for mutations affecting `Message`"""
+input MessageInput {
+  """identifies messages, id is auto-generated"""
+  id: UUID
+
+  """the thread associated with this message"""
   threadId: String
 
-  """a public key to send data to this session"""
-  publicKey: String!
+  """the actual message body"""
+  body: String!
+  fromId: UUID!
 
-  """time session record was created"""
-  createdAt: Datetime!
+  """time message record was created"""
+  createdAt: Datetime
 
-  """last time this session record was updated"""
-  updatedAt: Datetime!
+  """last time this message record was updated"""
+  updatedAt: Datetime
+}
+
+"""The output of our create `Session` mutation."""
+type CreateSessionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Session` that was created by this mutation."""
+  session: Session
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
 
   """Reads a single `Thread` that is related to this `Session`."""
   thread: Thread
 
-  """Reads and enables pagination through a set of `Thread`."""
-  threadsByOwnerId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Thread`."""
-    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ThreadCondition
-  ): ThreadsConnection!
-
-  """Reads a single `Message` that is related to this `Session`."""
-  messageByFromId: Message
-
-  """Reads and enables pagination through a set of `Message`."""
-  messagesByFromId(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Message`."""
-    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: MessageCondition
-  ): MessagesConnection! @deprecated(reason: "Please use messageByFromId instead")
+  """An edge for our `Session`. May be used by Relay 1."""
+  sessionEdge(
+    """The method to use when ordering `Session`."""
+    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SessionsEdge
 }
 
-"""
-A condition to be used against `Session` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input SessionCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: UUID
+"""All input for the create `Session` mutation."""
+input CreateSessionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
 
-  """Checks for equality with the object’s `threadId` field."""
-  threadId: String
-
-  """Checks for equality with the object’s `publicKey` field."""
-  publicKey: String
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
+  """The `Session` to be created by this mutation."""
+  session: SessionInput!
 }
 
 """An input for mutations affecting `Session`"""
@@ -918,170 +756,42 @@ input SessionInput {
   updatedAt: Datetime
 }
 
-"""
-Represents an update to a `Session`. Fields that are set will be updated.
-"""
-input SessionPatch {
-  """identifies user sessions, id is created on thread start"""
-  id: UUID
+"""The output of our create `Thread` mutation."""
+type CreateThreadPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
 
-  """the thread associated with this session"""
-  threadId: String
-
-  """a public key to send data to this session"""
-  publicKey: String
-
-  """time session record was created"""
-  createdAt: Datetime
-
-  """last time this session record was updated"""
-  updatedAt: Datetime
-}
-
-"""A connection to a list of `Session` values."""
-type SessionsConnection {
-  """A list of `Session` objects."""
-  nodes: [Session]!
+  """The `Thread` that was created by this mutation."""
+  thread: Thread
 
   """
-  A list of edges which contains the `Session` and cursor to aid in pagination.
+  Our root query field type. Allows us to run any query from our mutation payload.
   """
-  edges: [SessionsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Session` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `Session` edge in the connection."""
-type SessionsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Session` at the end of the edge."""
-  node: Session
-}
-
-"""Methods to use when ordering `Session`."""
-enum SessionsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  THREAD_ID_ASC
-  THREAD_ID_DESC
-  PUBLIC_KEY_ASC
-  PUBLIC_KEY_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-The root subscription type: contains realtime events you can subscribe to with the `subscription` operation.
-"""
-type Subscription {
-  listen(topic: String!): ListenPayload!
-}
-
-"""a private conversation"""
-type Thread implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: String!
-
-  """session id that invited that created the thread"""
-  ownerId: UUID!
-
-  """time thread record was created"""
-  createdAt: Datetime!
-
-  """last time this thread record was updated"""
-  updatedAt: Datetime!
+  query: Query
 
   """Reads a single `Session` that is related to this `Thread`."""
   owner: Session
 
-  """Reads and enables pagination through a set of `Session`."""
-  sessions(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Session`."""
-    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SessionCondition
-  ): SessionsConnection!
-
-  """Reads and enables pagination through a set of `Message`."""
-  messages(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """The method to use when ordering `Message`."""
-    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: MessageCondition
-  ): MessagesConnection!
+  """An edge for our `Thread`. May be used by Relay 1."""
+  threadEdge(
+    """The method to use when ordering `Thread`."""
+    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ThreadsEdge
 }
 
-"""
-A condition to be used against `Thread` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input ThreadCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: String
+"""All input for the create `Thread` mutation."""
+input CreateThreadInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
 
-  """Checks for equality with the object’s `ownerId` field."""
-  ownerId: UUID
-
-  """Checks for equality with the object’s `createdAt` field."""
-  createdAt: Datetime
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: Datetime
+  """The `Thread` to be created by this mutation."""
+  thread: ThreadInput!
 }
 
 """An input for mutations affecting `Thread`"""
@@ -1098,76 +808,27 @@ input ThreadInput {
   updatedAt: Datetime
 }
 
-"""
-Represents an update to a `Thread`. Fields that are set will be updated.
-"""
-input ThreadPatch {
-  id: String
-
-  """session id that invited that created the thread"""
-  ownerId: UUID
-
-  """time thread record was created"""
-  createdAt: Datetime
-
-  """last time this thread record was updated"""
-  updatedAt: Datetime
-}
-
-"""A connection to a list of `Thread` values."""
-type ThreadsConnection {
-  """A list of `Thread` objects."""
-  nodes: [Thread]!
-
+"""The output of our update `Message` mutation."""
+type UpdateMessagePayload {
   """
-  A list of edges which contains the `Thread` and cursor to aid in pagination.
-  """
-  edges: [ThreadsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Thread` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `Thread` edge in the connection."""
-type ThreadsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Thread` at the end of the edge."""
-  node: Thread
-}
-
-"""Methods to use when ordering `Thread`."""
-enum ThreadsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  OWNER_ID_ASC
-  OWNER_ID_DESC
-  CREATED_AT_ASC
-  CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""All input for the `updateMessageByFromId` mutation."""
-input UpdateMessageByFromIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
+  """The `Message` that was updated by this mutation."""
+  message: Message
+
   """
-  An object where the defined keys will be set on the `Message` being updated.
+  Our root query field type. Allows us to run any query from our mutation payload.
   """
-  patch: MessagePatch!
-  fromId: UUID!
+  query: Query
+
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
+    """The method to use when ordering `Message`."""
+    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessagesEdge
 }
 
 """All input for the `updateMessageByNodeId` mutation."""
@@ -1189,6 +850,27 @@ input UpdateMessageByNodeIdInput {
   patch: MessagePatch!
 }
 
+"""
+Represents an update to a `Message`. Fields that are set will be updated.
+"""
+input MessagePatch {
+  """identifies messages, id is auto-generated"""
+  id: UUID
+
+  """the thread associated with this message"""
+  threadId: String
+
+  """the actual message body"""
+  body: String
+  fromId: UUID
+
+  """time message record was created"""
+  createdAt: Datetime
+
+  """last time this message record was updated"""
+  updatedAt: Datetime
+}
+
 """All input for the `updateMessage` mutation."""
 input UpdateMessageInput {
   """
@@ -1206,37 +888,8 @@ input UpdateMessageInput {
   id: UUID!
 }
 
-"""The output of our update `Message` mutation."""
-type UpdateMessagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `Message` that was updated by this mutation."""
-  message: Message
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `Thread` that is related to this `Message`."""
-  thread: Thread
-
-  """Reads a single `Session` that is related to this `Message`."""
-  from: Session
-
-  """An edge for our `Message`. May be used by Relay 1."""
-  messageEdge(
-    """The method to use when ordering `Message`."""
-    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): MessagesEdge
-}
-
-"""All input for the `updateSessionByNodeId` mutation."""
-input UpdateSessionByNodeIdInput {
+"""All input for the `updateMessageByFromId` mutation."""
+input UpdateMessageByFromIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1244,48 +897,10 @@ input UpdateSessionByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Session` to be updated.
+  An object where the defined keys will be set on the `Message` being updated.
   """
-  nodeId: ID!
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-}
-
-"""All input for the `updateSessionByPublicKey` mutation."""
-input UpdateSessionByPublicKeyInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-
-  """a public key to send data to this session"""
-  publicKey: String!
-}
-
-"""All input for the `updateSession` mutation."""
-input UpdateSessionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Session` being updated.
-  """
-  patch: SessionPatch!
-
-  """identifies user sessions, id is created on thread start"""
-  id: UUID!
+  patch: MessagePatch!
+  fromId: UUID!
 }
 
 """The output of our update `Session` mutation."""
@@ -1314,8 +929,8 @@ type UpdateSessionPayload {
   ): SessionsEdge
 }
 
-"""All input for the `updateThreadByNodeId` mutation."""
-input UpdateThreadByNodeIdInput {
+"""All input for the `updateSessionByNodeId` mutation."""
+input UpdateSessionByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1323,18 +938,38 @@ input UpdateThreadByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Thread` to be updated.
+  The globally unique `ID` which will identify a single `Session` to be updated.
   """
   nodeId: ID!
 
   """
-  An object where the defined keys will be set on the `Thread` being updated.
+  An object where the defined keys will be set on the `Session` being updated.
   """
-  patch: ThreadPatch!
+  patch: SessionPatch!
 }
 
-"""All input for the `updateThread` mutation."""
-input UpdateThreadInput {
+"""
+Represents an update to a `Session`. Fields that are set will be updated.
+"""
+input SessionPatch {
+  """identifies user sessions, id is created on thread start"""
+  id: UUID
+
+  """the thread associated with this session"""
+  threadId: String
+
+  """a public key to send data to this session"""
+  publicKey: String
+
+  """time session record was created"""
+  createdAt: Datetime
+
+  """last time this session record was updated"""
+  updatedAt: Datetime
+}
+
+"""All input for the `updateSession` mutation."""
+input UpdateSessionInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1342,10 +977,29 @@ input UpdateThreadInput {
   clientMutationId: String
 
   """
-  An object where the defined keys will be set on the `Thread` being updated.
+  An object where the defined keys will be set on the `Session` being updated.
   """
-  patch: ThreadPatch!
-  id: String!
+  patch: SessionPatch!
+
+  """identifies user sessions, id is created on thread start"""
+  id: UUID!
+}
+
+"""All input for the `updateSessionByPublicKey` mutation."""
+input UpdateSessionByPublicKeyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Session` being updated.
+  """
+  patch: SessionPatch!
+
+  """a public key to send data to this session"""
+  publicKey: String!
 }
 
 """The output of our update `Thread` mutation."""
@@ -1374,7 +1028,268 @@ type UpdateThreadPayload {
   ): ThreadsEdge
 }
 
+"""All input for the `updateThreadByNodeId` mutation."""
+input UpdateThreadByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Thread` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Thread` being updated.
+  """
+  patch: ThreadPatch!
+}
+
 """
-A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+Represents an update to a `Thread`. Fields that are set will be updated.
 """
-scalar UUID
+input ThreadPatch {
+  id: String
+
+  """session id that invited that created the thread"""
+  ownerId: UUID
+
+  """time thread record was created"""
+  createdAt: Datetime
+
+  """last time this thread record was updated"""
+  updatedAt: Datetime
+}
+
+"""All input for the `updateThread` mutation."""
+input UpdateThreadInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Thread` being updated.
+  """
+  patch: ThreadPatch!
+  id: String!
+}
+
+"""The output of our delete `Message` mutation."""
+type DeleteMessagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Message` that was deleted by this mutation."""
+  message: Message
+  deletedMessageNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Message`. May be used by Relay 1."""
+  messageEdge(
+    """The method to use when ordering `Message`."""
+    orderBy: [MessagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MessagesEdge
+}
+
+"""All input for the `deleteMessageByNodeId` mutation."""
+input DeleteMessageByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Message` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteMessage` mutation."""
+input DeleteMessageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """identifies messages, id is auto-generated"""
+  id: UUID!
+}
+
+"""All input for the `deleteMessageByFromId` mutation."""
+input DeleteMessageByFromIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  fromId: UUID!
+}
+
+"""The output of our delete `Session` mutation."""
+type DeleteSessionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Session` that was deleted by this mutation."""
+  session: Session
+  deletedSessionNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Thread` that is related to this `Session`."""
+  thread: Thread
+
+  """An edge for our `Session`. May be used by Relay 1."""
+  sessionEdge(
+    """The method to use when ordering `Session`."""
+    orderBy: [SessionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SessionsEdge
+}
+
+"""All input for the `deleteSessionByNodeId` mutation."""
+input DeleteSessionByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Session` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteSession` mutation."""
+input DeleteSessionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """identifies user sessions, id is created on thread start"""
+  id: UUID!
+}
+
+"""All input for the `deleteSessionByPublicKey` mutation."""
+input DeleteSessionByPublicKeyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """a public key to send data to this session"""
+  publicKey: String!
+}
+
+"""The output of our delete `Thread` mutation."""
+type DeleteThreadPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Thread` that was deleted by this mutation."""
+  thread: Thread
+  deletedThreadNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Session` that is related to this `Thread`."""
+  owner: Session
+
+  """An edge for our `Thread`. May be used by Relay 1."""
+  threadEdge(
+    """The method to use when ordering `Thread`."""
+    orderBy: [ThreadsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ThreadsEdge
+}
+
+"""All input for the `deleteThreadByNodeId` mutation."""
+input DeleteThreadByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Thread` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteThread` mutation."""
+input DeleteThreadInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""The output of our `courierCode` mutation."""
+type CourierCodePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  string: String
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""All input for the `courierCode` mutation."""
+input CourierCodeInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+}
+
+"""
+The root subscription type: contains realtime events you can subscribe to with the `subscription` operation.
+"""
+type Subscription {
+  listen(topic: String!): ListenPayload!
+}
+
+type ListenPayload {
+  """
+  Our root query field type. Allows us to run any query from our subscription payload.
+  """
+  query: Query
+  relatedNode: Node
+  relatedNodeId: ID
+}

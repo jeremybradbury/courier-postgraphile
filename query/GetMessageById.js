@@ -4,17 +4,8 @@ module.exports = {
     message(id: $id) {
       id
       body
-      from {
-        id
-        publicKey
-      }
-      thread {
-        id
-        owner {
-          publicKey
-          id
-        }
-      }
+      fromId
+      threadId
     }
   }
 `,
