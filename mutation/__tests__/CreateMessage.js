@@ -6,6 +6,7 @@ const {
   uncap,
   debugRequest,
   DEBUG,
+  delay,
 } = require("../../test_helpers");
 const faker = require("@jeremybradbury/faker");
 const CreateSession = require("../CreateSession");
@@ -20,7 +21,7 @@ describe("Query", () => {
   it("Create Message", async () => {
     if (!DEBUG || DEBUG.trim() == "true") {
       // run this with a delay for cleaner logging
-      await new Promise((resolve) => setTimeout(resolve, 250));
+      await delay(250);
     }
     // 1 mock owner
     const ownerKey = faker.random.alphaNumeric(64);
@@ -29,8 +30,9 @@ describe("Query", () => {
     };
     let label;
     let query = CreateSession.query;
+    await delay(250); // pause to let CreateSession test complete
     let { data, errors } = await postQuery({ query, variables });
-    if (errors) return console.error(errors);
+    if (errors) console.error(errors);
     errors = null;
     let owner = data.createSession.session;
     // test owner
@@ -44,7 +46,8 @@ describe("Query", () => {
     query = CreateThread.query;
     ({ data, errors } = await postQuery({ query, variables })); // create
     const createThreadData = data;
-    if (errors) return console.error(errors);
+    console.log(data);
+    if (errors) console.error(errors);
     errors = null;
     const thread = data.createThread.thread;
     // test thread
@@ -57,7 +60,7 @@ describe("Query", () => {
     variables = { sessionId: owner.id, threadId: thread.id };
     query = JoinThread.query;
     ({ data, errors } = await postQuery({ query, variables })); // create
-    errors && console.error(43, errors);
+    if (errors) console.error(errors);
     owner = data.updateSession.session;
 
     // test owner session update
@@ -75,7 +78,7 @@ describe("Query", () => {
     };
     query = CreateSession.query;
     ({ data, errors } = await postQuery({ query, variables }));
-    if (errors) return console.error(errors);
+    if (errors) console.error(errors);
     errors = null;
     const guest = data.createSession.session;
     // test create session & join thread
@@ -93,7 +96,7 @@ describe("Query", () => {
     };
     query = CreateMessage.query;
     ({ data, errors } = await postQuery({ query, variables })); // create
-    if (errors) return console.error(errors);
+    if (errors) console.error(errors);
     errors = null;
     const message = data.createMessage.message;
     expect(message.id).toBeTruthy(); // created?
@@ -107,7 +110,7 @@ describe("Query", () => {
     variables = { id: message.id };
     query = GetMessageById.query;
     ({ data, errors } = await postQuery({ query, variables })); // Create
-    if (errors) return console.error(errors);
+    if (errors) console.error(errors);
 
     const message2 = data.message;
     // test both messages
@@ -129,7 +132,6 @@ describe("Query", () => {
     }); // do lookup & expect(), before deleting
     // test deleted
     expect(threadDeleted).toBeTruthy(); // deleted?
-
     // wipe owner - cascade handles this
     // wipe guest - cascade handles this
     // wipe messages - cascade handles this
