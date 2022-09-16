@@ -15,6 +15,7 @@
 1. install docker-compose
 1. install git
 1. install node 16 (14 also works, not fully tested in 10 or 12)
+1. install psql CLI client (server includes it)
 1. clone repository: `git clone git@github.com:jeremybradbury/courier-postgraphile.git`
 
 # Getting Started
@@ -22,8 +23,8 @@
 1. dependencies: `npm i`
 1. setup: `yarn setup` or `yarn setup_win` respectively
 1. test: `yarn test` (concurrently runs `yarn start` & `yarn tests`)
-1. develop: `yarn dev`
 1. build schema: `yarn build`
+1. develop: `yarn dev`
 1. "prod mode": `yarn prod` - TODO: improve this
 1. ci testing: `yarn tests` (expects server is running on localhost:5000)
 
@@ -31,14 +32,7 @@
 
 This is a project, but also a simple base. Fork or even degit to private, just please, understand and respect the basics of [the MIT license](LICENSE.txt). Just leave it there without modification. It's a short read we often ignore.
 
-I had to recover (in order to [fork](https://github.com/jeremybradbury/faker.js) & [publish to npm](https://www.npmjs.com/package/@jeremybradbury/faker)) a common, open source repo, because the maintainer felt taken advantage of, by commercial organizations... so they force-push-wiped their repo. 
-
-It's very sad OSS maintainters don't get more support. We're in this together & we all become better because of each other's contributions!
-
-Not only is license enforcement hard for open source maintainers, many commercial organizations fail to donate to open source projects they rely on.
-
-Not asking for donations (yet anyway), just a small note on where you got this project, that few will read, and even fewer will search our names when they do.
-
+We're in this together & we all become better because of each other's contributions!
 ## Naming Conventions
 
 This is pretty simple, yet requires some explanation.
@@ -50,6 +44,8 @@ This is pretty simple, yet requires some explanation.
 ## Integration Testing over Unit Testing
 
 Since integration tests are actually pretty simple to automate these days, they can prevent server code from being plagued with more complex patterns to support unit testing.
+
+In this case, unit tests would have to be done in the database engine.
 
 This framework focuses less on commit hooks preventing bad commits, and more CI based, pre-deployment testing that can be triggered locally with ease.
 
