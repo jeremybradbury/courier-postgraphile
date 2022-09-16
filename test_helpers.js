@@ -111,6 +111,8 @@ const debugRequest = ({ variables = {}, name = "", data = {} }) => {
   process.stdout.write(output);
 };
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 module.exports = {
   postQuery,
   testQuery,
@@ -118,6 +120,7 @@ module.exports = {
   alsoLookupCb,
   alsoLookupThenDeleteCb,
   cap,
+  delay,
   uncap,
   debugRequest,
   GRAPHQL_ENDPOINT,

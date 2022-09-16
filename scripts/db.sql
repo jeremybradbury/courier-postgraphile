@@ -59,6 +59,7 @@ ADD CONSTRAINT "thread_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "sessi
 
 CREATE TABLE IF NOT EXISTS "message" ( 
 	"id" UUID NOT NULL DEFAULT uuid_generate_v4(), 
+	"from_id" UUID,
 	"thread_id" VARCHAR(6),
 	"body" TEXT NOT NULL,
 	"created_at" TIMESTAMP NOT NULL DEFAULT 'now()',
