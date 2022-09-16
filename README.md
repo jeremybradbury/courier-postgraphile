@@ -79,7 +79,7 @@ This is a great question, to which I have a few great answers, that you may enti
 1. I want to support Node 12, Postgres 9 & use fewer dependencies.
 1. Simpler is better - few lines are needed for tests & types are handled transparently.
 
-I def suggest TypeScript with Svelte/React/etc on the client, but until we can `TSON.serialize()` & `TSON.unserialize()` on both the client & server, TS fails us at interoperability & has lead to solutions (in combination with NoSQL engines) like Kefka, SQS, GraphQL & gRPC (to replace SOAP/RPC essentially).
+I def suggest TypeScript with Svelte/React/etc on the client, but until we can `TSON.serialize()` & `TSON.unserialize()` on both the client & server, TS fails us at interoperability & has lead to solutions (in combination with NoSQL engines) like Kafka, SQS, GraphQL & gRPC (to replace SOAP/RPC essentially).
 
 ## What else? - Final thoughts
 
